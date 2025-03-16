@@ -1,0 +1,70 @@
+<div>
+    <h2>Update Contact</h2>
+    <form action="/api">
+        <input type="text" name="name" id="updatedName" value="{{selectedContact.name}}" required>
+        <input type="text" name="phone" id="updatedPhone" value="{{selectedContact.phone}}" required>
+        <button type="submit" data-name="{{selectedContact.name}}" data-phone="{{selectedContact.phone}}" 
+        onclick="updateContact(this.dataset)">Изменить</button>
+    </form>
+    <form action="/api">
+    <button type="submit" id="deleteButton" data-name="{{selectedContact.name}}" data-phone="{{selectedContact.phone}}" 
+    onclick="deleteContact(this.dataset)">Удалить</button>
+    </form>
+    {{cancelButton '/api'}}
+</div>
+
+<script>
+   
+    document.addEventListener('DOMContentLoaded', ()=> {
+   
+        const inputName = document.querySelector('input[name="name"]');
+        const inputPhone = document.querySelector('input[name="phone"]');
+       const buttons = document.querySelectorAll('.contact-button');
+        const deleteButton = document.getElementById('deleteButton');
+
+        inputName.addEventListener('input', () => {
+            if (inputName.value.length > 0) {
+                deleteButton.disabled = true; 
+            } else {
+                deleteButton.disabled = false; 
+            }
+        });
+          inputPhone.addEventListener('input', () => {
+            if (inputPhone.value.length > 0) {
+                deleteButton.disabled = true; 
+            } else {
+                deleteButton.disabled = false; 
+            }
+        });
+        buttons.forEach(button => {
+            button.disabled = true;
+        });
+      
+    });
+   function deleteContact(selectedContact) {
+    fetch(`/api/deleteContact/${selectedContact.phone}`,{method:'DELETE'}).then(response => {
+        console.log(response.status)
+            if (response.ok) {
+                console.log('Контакт успешно удален');
+            } else {
+                console.error('Ошибка при удалении контакта');
+            }
+        })
+        .catch(error => console.error('Ошибка:', error));
+    }
+    function updateContact(selectedContact){
+        console.log("asdasd")
+        const name = document.getElementById('updatedName').value;
+        const phone = document.getElementById('updatedPhone').value;
+
+    
+
+            fetch(`/api/updateContact/${selectedContact.phone}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({name,phone})
+            })
+    }
+</script>

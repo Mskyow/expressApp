@@ -1,0 +1,21 @@
+<h1>Добавить строку</h1>
+<form action="/api/addContact" method="POST">
+    <input type="text" name="name" required placeholder="Введите имя" >
+    <input type="text" name="phone" required placeholder="Введите телефон" >
+    <button type="submit">Добавить</button>
+</form>
+      {{cancelButton '/api'}}
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', ()=> {
+   
+        const input = document.querySelector('input[name="name"]');
+       const buttons = document.querySelectorAll('.contact-button');
+
+        // Блокируем все кнопки при загрузке страницы
+        buttons.forEach(button => {
+            button.disabled = true;
+        });
+      
+    });</script>

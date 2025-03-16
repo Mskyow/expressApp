@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <style>
+        .contact-list {
+            margin-bottom: 20px;
+            background-color: rgb(170, 170, 170);
+        }
+        .contact-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .contact-list li {
+            margin: 5px 0;
+        }
+        button:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Список контактов -->
+    <div class="contact-list">
+        <h2>Contact List</h2>
+          <ul>
+        {{#each items}}
+        <li>
+                {{> contactButtonPartial name=this.name phone=this.phone }} 
+        </li>
+        {{/each}}
+    </ul>
+    </div>
+
+    <!-- Динамическое содержимое -->
+    {{{body}}}
+    <script>
+    function handleClick(url) {        
+        location.href = url;
+    }
+    </script>
+</body>
+</html>
