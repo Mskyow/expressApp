@@ -3,7 +3,7 @@ import { IContact } from './model';
 
 export class ModelService{
 
-    private dataPath = ('D:/6_semestr/PSKP/lab_20/src/data/data.json');
+    private dataPath = ('./src/data/data.json');
 
     getAll():IContact[]{
         const data = fs.readFileSync(this.dataPath,'utf-8');
@@ -32,7 +32,7 @@ export class ModelService{
 
         const index = contacts.findIndex(contact => contact.phone === phone);
         contacts[index] = { ...contacts[index], ...data }; 
-        
+
         fs.writeFileSync(this.dataPath, JSON.stringify(contacts, null, 2)); 
     }
 
