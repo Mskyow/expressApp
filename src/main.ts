@@ -12,7 +12,6 @@ function main():void{
     app.use(bodyParser.urlencoded({ extended: true })); // Для обработки данных формы
     app.use(cors())
     app.use(express.json());
-    app.set('partialsDir', 'D:/6_semestr/PSKP/lab_20/src/view');
 
     Handlebars.registerHelper('cancelButton', function(actionUrl:string) {
         return new Handlebars.SafeString(`
@@ -22,13 +21,16 @@ function main():void{
         `);
     });
 
+    app.set('views', './src/view'); // Папка с шаблонами
+
+    // Настройка Handlebars
     app.engine('handlebars', engine({
-        defaultLayout: 'D:/6_semestr/PSKP/lab_20/src/view/main', // Указываем основной layout
-        layoutsDir : "D:/6_semestr/PSKP/lab_20/src/view",
-        partialsDir : "D:/6_semestr/PSKP/lab_20/src/view",
+        defaultLayout: 'main', // Указываем основной layout без пути
+        layoutsDir: './src/view', // Директория для макетов
+        partialsDir: './src/view', // Директория для частичных шаблонов
     }));
+
     app.set('view engine', 'handlebars');
-    app.set('views', "D:/6_semestr/PSKP/lab_20/src/view"); // Указываем путь к папке с шаблонами
 
 
     const router = new ApiRouter()
