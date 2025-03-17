@@ -45,7 +45,7 @@ export class ModelService{
         }
 
 
-        contacts = contacts.filter(contact => contact.name !== phone);
+        contacts = contacts.filter(contact => contact.phone !== phone);
 
         fs.writeFileSync(this.dataPath, JSON.stringify(contacts, null, 2)); 
     }
